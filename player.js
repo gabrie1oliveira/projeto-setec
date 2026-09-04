@@ -141,25 +141,29 @@ class Player {
 
         this.left =
             keys["ArrowLeft"] ||
+            keys.left ||
             keys["a"] ||
             keys["A"];
 
 
         this.right =
             keys["ArrowRight"] ||
+            keys.right ||
             keys["d"] ||
             keys["D"];
 
 
         const jump =
             keys["ArrowUp"] ||
+            keys.jump ||
             keys["w"] ||
             keys["W"] ||
             keys[" "];
 
 
         const run =
-            keys["Shift"];
+            keys["Shift"] ||
+            keys.run;
 
 
         this.running =
@@ -597,15 +601,8 @@ class Player {
             this.lives <= 0
         ) {
 
-            if (
-                typeof GAME !==
-                "undefined" &&
-                GAME.gameOver
-            ) {
-
-                GAME.gameOver();
-
-            }
+            if (typeof GAME !== "undefined" && typeof GAME.endGame === "function") GAME.endGame();
+            else if (typeof GAME !== "undefined") GAME.gameOver = true;
 
             return;
 
